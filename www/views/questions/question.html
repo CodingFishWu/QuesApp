@@ -1,0 +1,12 @@
+<ion-content class="content-all" scroll="false">
+	<div class="content-question">
+		<div class="row row-center">
+			<h3 class="col">{{ctrl.question}}</h3>
+		</div>
+	</div>
+	<div class="content-options">
+		<button class="button" ng-repeat="item in ctrl.options track by $index">
+		  {{item}}
+		</button>
+	</div>
+</ion-content>

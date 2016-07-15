@@ -1,0 +1,25 @@
+<ion-header-bar align-title="center" class="bar-positive">
+  <div class="buttons">
+    <button class="button" ng-click="ctrl.back()">Back</button>
+  </div>
+  <h1 class="title">Create Question</h1>
+  <div class="buttons">
+    <button class="button" ng-click="ctrl.save()">Save</button>
+  </div>
+</ion-header-bar>
+<ion-content class="has-header">
+  <div class="card list" ng-repeat="item in ctrl.questions">
+    <div class="item item-divider">
+      <input type="text" class="card-head-input" placeholder="Please enter the question" ng-model="item.question">
+    </div>
+    <div class="item item-icon-left card-option-item" ng-repeat="item2 in item.options">
+      <i class="icon ion-arrow-right-a"></i>
+      <input type="text" class="card-option-input" placeholder="Enter Option" ng-model="item2">
+    </div>
+    
+  </div>
+  <button class="button btn-add">
+    <span class="ion-plus-circled"></span>
+  </button>
+
+</ion-content>
