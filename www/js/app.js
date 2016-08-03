@@ -29,13 +29,18 @@ angular.module('QuesApp', ['ionic'])
   .when('', 'question');
   
   $stateProvider
+    .state('index', {
+      url: '/index',
+      templateUrl: 'views/index/index.html',
+      controller: 'IndexCtrl as ctrl'
+    })
     .state('question', {
-      url: '/question',
+      url: '/question/:id',
       templateUrl: 'views/questions/question.html',
       controller: 'QuestionCtrl as ctrl'
     })
     .state('create', {
-      url: '/create',
+      url: '/create/:id',
       templateUrl: 'views/create/create.html',
       controller: 'CreateCtrl as ctrl'
     })

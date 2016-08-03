@@ -45,10 +45,18 @@ input.card-head-input {
 }
 input.card-option-input {
 	background-color: rgba(0,0,0,0);
+	width: 100%;
 }
 
 .item.item-icon-left.card-option-item {
 	height: 40px;
 	padding-top: 0;
 	padding-bottom: 0;
+}
+
+
+.icon-btn-group {
+	display: inline-block;
+	float: right;
+	font-size: 25px;
 }
