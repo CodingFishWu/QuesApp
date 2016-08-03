@@ -22,8 +22,9 @@ angular.module('QuesApp')
                         else {
                             let quesair = new Quesair()
                             quesair.set('title', title)
-                            quesair.save()
-                            getAll()
+                            quesair.save().then(() => {
+                                getAll()
+                            })
                         }
                     }
                 }
@@ -32,22 +33,35 @@ angular.module('QuesApp')
     }
 
     self.delete = function($index) {
-        // console.log(self.quesList[$index])
-        // QuesStorage.delete(self.quesList[$index])
-        // quesList.splice($index, 1)
-        // QuesStorage.save()
+        $ionicPopup.confirm({
+            title: 'Confirm Delete?',
+            template: 'The action can\'t be restore, are you sure?'
+        }).then(function(res) {
+            if (res) {
+                let quesair = self.quesList[$index]
+                quesair.set('isDeleted', true)
+                quesair.save().then(() => {
+                    self.quesList.splice($index, 1)
+                    $scope.$apply()
+                })
+            }
+            else {
+                return
+            }
+        });
     }
 
     self.edit = function(index) {
-        $state.go('create', {id: quesList[index].id})
+        $state.go('create', {id: self.quesList[index].id})
     }
 
     self.go = function(index) {
-        $state.go('question', {id: quesList[index].id})
+        $state.go('question', {id: self.quesList[index].id})
     }
 
     function getAll() {
         let query = new AV.Query('Quesair')
+        query.equalTo('isDeleted', false)
         query.find((results) => {
             self.quesList = results
             $scope.$apply()

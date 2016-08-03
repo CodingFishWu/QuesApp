@@ -1,33 +1,25 @@
 angular.module('QuesApp')
-.controller('CreateCtrl', function($state, $stateParams, $window, $ionicPopup, QuesStorage) {
+.controller('CreateCtrl', function($scope, $state, $stateParams, $window, $ionicPopup, Quesair, Question) {
     let self = this
     self.saved = true
     self.saving = false
-    self.quesList = QuesStorage.all()
 
-    self.title = $stateParams.title
-    self.questions = angular.copy(QuesStorage.get(self.title).questions)
-
-    if (self.questions == []) {
-        add()
-    }
+    self.id = $stateParams.id
+    getAll()
 
     self.save = function() {
         self.saving = true
         let flag = false
-        for (item of quesList) {
-            if (item.title = self.title) {
-                item.questions = self.questions
-                flag = true
-            }
+        for (item of self.questions) {
+            item.set('question', item['attributes']['question'])
+            item.set('options', item['attributes']['options'])
+            item.save()
         }
-        if (!flag) {
-            quesList.push({title: self.title, questions: self.questions})
-        }
-        QuesStorage.save(self.questions)
-        self.saving = false
-        self.saved = true
-        console.log(QuesStorage.all())
+        AV.Object.saveAll(self.questions).then(() => {
+            self.saving = false
+            self.saved = true
+            $scope.$apply()
+        })
     }
 
     self.add = function() {
@@ -56,9 +48,29 @@ angular.module('QuesApp')
     }
 
     function add() {
-        self.questions.push({
-            question: '',
-            options: ['', '', '', '']
+        let question = new Question()
+        question.set('quesair', self.quesair)
+        question.set('question', '')
+        question.set('options', ['', '', '', ''])
+        question.save().then(() => {
+            getAll()
+        })
+    }
+
+    function getAll() {
+        let query1 = new AV.Query('Quesair')
+        let query2 = new AV.Query('Question')
+        query1.include('questions')
+        query1.get(self.id).then((result) => {
+            self.quesair = result
+
+            query2.equalTo('quesair', result)
+            query2.equalTo('isDeleted', false)
+            query2.find().then((results) => {
+                self.questions = results
+                console.log(results)
+                $scope.$apply()
+            })
         })
     }
 })
