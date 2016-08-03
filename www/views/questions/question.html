@@ -2,11 +2,11 @@
 	<div class="content-item" ng-repeat="item in ctrl.questions track by $index" ng-if="ctrl.index==$index">
 		<div class="content-question">
 			<div class="row row-center">
-				<h3 class="col">{{item.question}}</h3>
+				<h3 class="col">{{item.attributes.question}}</h3>
 			</div>
 		</div>
 		<div class="content-options">
-			<button class="button" ng-repeat="item2 in item.options track by $index" ng-click="ctrl.select($index)">
+			<button class="button" ng-repeat="item2 in item.attributes.options track by $index" ng-click="ctrl.select($index)">
 			  {{item2}}
 			</button>
 		</div>

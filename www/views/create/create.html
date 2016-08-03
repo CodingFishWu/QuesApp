@@ -14,7 +14,7 @@
       <input type="text" class="card-head-input" placeholder="Please enter the question" ng-model="item.attributes.question">
     </div>
     <div class="item item-icon-left card-option-item" ng-repeat="item2 in item.attributes.options track by $index">
-      <i class="icon ion-arrow-right-a"></i>
+      <i class="icon ion-arrow-right-a" ng-class="{'correct-answer': $index==item.attributes.correct}" ng-click="ctrl.setCorrect(item, $index)"></i>
       <input type="text" class="card-option-input" placeholder="Enter Option" ng-model="item.attributes.options[$index]">
     </div>
     

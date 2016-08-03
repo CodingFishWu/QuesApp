@@ -47,6 +47,10 @@ angular.module('QuesApp')
         }
     }
 
+    self.setCorrect = function(item, index) {
+        item.set('correct', index)
+    }
+
     function add() {
         let question = new Question()
         question.set('quesair', self.quesair)

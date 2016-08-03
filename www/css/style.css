@@ -60,3 +60,7 @@ input.card-option-input {
 	float: right;
 	font-size: 25px;
 }
+
+.correct-answer {
+	color: red;
+}

@@ -1,9 +1,11 @@
 angular.module('QuesApp')
-.controller('QuestionCtrl', function($stateParams, QuesStorage) {
+.controller('QuestionCtrl', function($scope, $stateParams) {
 	let self = this
 	self.index = 0
-	self.title = $stateParams.title
-	self.questions = angular.copy(QuesStorage.get(self.title).questions)
+
+	self.id = $stateParams.id
+	getAll()
+	
 
 	self.select = function(index) {
 		console.log(index)
@@ -12,4 +14,21 @@ angular.module('QuesApp')
 			alert('ending')
 		}
 	}
+
+	function getAll() {
+        let query1 = new AV.Query('Quesair')
+        let query2 = new AV.Query('Question')
+        query1.include('questions')
+        query1.get(self.id).then((result) => {
+            self.quesair = result
+
+            query2.equalTo('quesair', result)
+            query2.equalTo('isDeleted', false)
+            query2.find().then((results) => {
+                self.questions = results
+                console.log(results)
+                $scope.$apply()
+            })
+        })
+    }
 })
