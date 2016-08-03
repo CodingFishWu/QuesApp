@@ -26,7 +26,7 @@ angular.module('QuesApp', ['ionic'])
 .config(function($stateProvider, $urlRouterProvider) {
   // Now set up the states
   $urlRouterProvider.otherwise('404')
-  .when('', 'question');
+  .when('', 'index');
   
   $stateProvider
     .state('index', {

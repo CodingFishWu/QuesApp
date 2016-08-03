@@ -2,6 +2,7 @@ angular.module('QuesApp')
 .controller('QuestionCtrl', function($scope, $stateParams) {
 	let self = this
 	self.index = 0
+	self.answers = []
 
 	self.id = $stateParams.id
 	getAll()
@@ -9,9 +10,15 @@ angular.module('QuesApp')
 
 	self.select = function(index) {
 		console.log(index)
+		self.answers.push(index)
 		self.index ++
 		if (self.index >= self.questions.length) {
-			alert('ending')
+			let correctNumber = 0
+			for (i in self.questions) {
+				if (self.answers[i] == self.questions[i].get('correct'))
+					correctNumber += 1
+			}
+			alert('一共回答了' + self.answers.length + '道题，正确数目为' + correctNumber)
 		}
 	}
 
