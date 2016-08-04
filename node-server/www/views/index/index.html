@@ -1,0 +1,21 @@
+<ion-header-bar align-title="center" class="bar-positive">
+  <h1 class="title">Item List</h1>
+  <div class="buttons">
+    <button class="button" ng-click="ctrl.add()" ng-disable="ctrl.saving">New</button>
+  </div>
+</ion-header-bar>
+
+<ion-content scroll="false">
+  <ul class="list">
+    <li class="item" ng-repeat="item in ctrl.quesList track by $index">
+      {{item.attributes.title}}
+      <div class="icon-btn-group">
+        <i class="ion-edit" ng-click="ctrl.edit($index)"></i>
+        <i class="ion-trash-b" ng-click="ctrl.delete($index)"></i>
+        <i class="ion-paper-airplane" ng-click="ctrl.go($index)"></i>
+      </div>
+      
+      
+    </li>
+  </ul>
+</ion-content>
