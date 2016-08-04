@@ -27,6 +27,15 @@ angular.module('QuesApp')
         add()
     }
 
+    self.delete = function(index) {
+        var question = self.questions[index]
+        question.set('isDeleted', true)
+        question.save().then(function() {
+            self.questions.splice(index, 1);
+            $scope.$apply()
+        })
+    }
+
     self.back = function() {
         var flag = true
         if (!self.saved) {

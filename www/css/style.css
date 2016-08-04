@@ -38,10 +38,17 @@
 }
 
 input.card-head-input {
+	display: inline;
 	height: 100%;
 	padding: 0;
 	background-color: rgba(0,0,0,0);
-	width: 100%;
+	width: 80%;
+}
+span.card-head-delete {
+	font-size: 20px;
+	padding: 0;
+	padding-right: 10px;
+	width: 10%;
 }
 input.card-option-input {
 	background-color: rgba(0,0,0,0);
