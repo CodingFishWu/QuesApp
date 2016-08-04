@@ -1,6 +1,6 @@
 angular.module('QuesApp')
 .controller('QuestionCtrl', function($scope, $stateParams) {
-	let self = this
+	var self = this
 	self.index = 0
 	self.answers = []
 
@@ -13,7 +13,7 @@ angular.module('QuesApp')
 		self.answers.push(index)
 		self.index ++
 		if (self.index >= self.questions.length) {
-			let correctNumber = 0
+			var correctNumber = 0
 			for (i in self.questions) {
 				if (self.answers[i] == self.questions[i].get('correct'))
 					correctNumber += 1
@@ -23,15 +23,15 @@ angular.module('QuesApp')
 	}
 
 	function getAll() {
-        let query1 = new AV.Query('Quesair')
-        let query2 = new AV.Query('Question')
+        var query1 = new AV.Query('Quesair')
+        var query2 = new AV.Query('Question')
         query1.include('questions')
-        query1.get(self.id).then((result) => {
+        query1.get(self.id).then(function(result) {
             self.quesair = result
 
             query2.equalTo('quesair', result)
             query2.equalTo('isDeleted', false)
-            query2.find().then((results) => {
+            query2.find().then(function(results) {
                 self.questions = results
                 console.log(results)
                 $scope.$apply()

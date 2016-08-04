@@ -1,6 +1,6 @@
 angular.module('QuesApp')
 .controller('CreateCtrl', function($scope, $state, $stateParams, $window, $ionicPopup, Quesair, Question) {
-    let self = this
+    var self = this
     self.saved = true
     self.saving = false
 
@@ -9,13 +9,13 @@ angular.module('QuesApp')
 
     self.save = function() {
         self.saving = true
-        let flag = false
+        var flag = false
         for (item of self.questions) {
             item.set('question', item['attributes']['question'])
             item.set('options', item['attributes']['options'])
             item.save()
         }
-        AV.Object.saveAll(self.questions).then(() => {
+        AV.Object.saveAll(self.questions).then(function() {
             self.saving = false
             self.saved = true
             $scope.$apply()
@@ -28,7 +28,7 @@ angular.module('QuesApp')
     }
 
     self.back = function() {
-        let flag = true
+        var flag = true
         if (!self.saved) {
             $ionicPopup.confirm({
                 title: 'Confirm Exit?',
@@ -52,25 +52,25 @@ angular.module('QuesApp')
     }
 
     function add() {
-        let question = new Question()
+        var question = new Question()
         question.set('quesair', self.quesair)
         question.set('question', '')
         question.set('options', ['', '', '', ''])
-        question.save().then(() => {
+        question.save().then(function() {
             getAll()
         })
     }
 
     function getAll() {
-        let query1 = new AV.Query('Quesair')
-        let query2 = new AV.Query('Question')
+        var query1 = new AV.Query('Quesair')
+        var query2 = new AV.Query('Question')
         query1.include('questions')
-        query1.get(self.id).then((result) => {
+        query1.get(self.id).then(function(result) {
             self.quesair = result
 
             query2.equalTo('quesair', result)
             query2.equalTo('isDeleted', false)
-            query2.find().then((results) => {
+            query2.find().then(function(results) {
                 self.questions = results
                 console.log(results)
                 $scope.$apply()

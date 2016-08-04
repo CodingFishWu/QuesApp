@@ -1,6 +1,6 @@
 angular.module('QuesApp')
 .controller('IndexCtrl', function($scope, $state, $ionicPopup, Quesair) {
-    let self = this
+    var self = this
     getAll()
     
     self.add = function() {
@@ -14,15 +14,15 @@ angular.module('QuesApp')
                     text: '<b>Save</b>',
                     type: 'button-positive',
                     onTap: function(e) {
-                        let title = document.getElementById('popupInput').value
+                        var title = document.getElementById('popupInput').value
                         if (!title) {
                             //don't allow the user to close unless he enters wifi password
                             e.preventDefault()
                         }
                         else {
-                            let quesair = new Quesair()
+                            var quesair = new Quesair()
                             quesair.set('title', title)
-                            quesair.save().then(() => {
+                            quesair.save().then(function() {
                                 getAll()
                             })
                         }
@@ -38,9 +38,9 @@ angular.module('QuesApp')
             template: 'The action can\'t be restore, are you sure?'
         }).then(function(res) {
             if (res) {
-                let quesair = self.quesList[$index]
+                var quesair = self.quesList[$index]
                 quesair.set('isDeleted', true)
-                quesair.save().then(() => {
+                quesair.save().then(function() {
                     self.quesList.splice($index, 1)
                     $scope.$apply()
                 })
@@ -60,9 +60,9 @@ angular.module('QuesApp')
     }
 
     function getAll() {
-        let query = new AV.Query('Quesair')
+        var query = new AV.Query('Quesair')
         query.equalTo('isDeleted', false)
-        query.find((results) => {
+        query.find(function(results) {
             self.quesList = results
             $scope.$apply()
         })
