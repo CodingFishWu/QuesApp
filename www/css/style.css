@@ -2,8 +2,14 @@
 
 .content-all {
 	height: 100%;
-	background-color: yellow;
+	/*background-color: yellow;*/
 	align-content: center;
+}
+
+.content-item {
+	position: fixed;
+	height: 100%;
+	width: 100%;
 }
 
 .content-question {
@@ -37,17 +43,21 @@
 	background-color: rgba(0,0,0,0);
 }
 
+.bar-positive .button.btn-unsaved {
+	color: red;
+}
+
 input.card-head-input {
 	display: inline;
 	height: 100%;
 	padding: 0;
 	background-color: rgba(0,0,0,0);
-	width: 80%;
+	width: 70%;
 }
-span.card-head-delete {
+span.card-head-delete, span.card-head-image {
 	font-size: 20px;
 	padding: 0;
-	padding-right: 10px;
+	padding-right: 20px;
 	width: 10%;
 }
 input.card-option-input {

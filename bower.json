@@ -3,6 +3,7 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.3.1",
-    "leancloud-storage": "^1.3.2"
+    "leancloud-storage": "^1.3.2",
+    "ng-file-upload": "^12.2.5"
   }
 }

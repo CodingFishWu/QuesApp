@@ -2,23 +2,24 @@ angular.module('QuesApp')
 .controller('CreateCtrl', function($scope, $state, $stateParams, $window, $ionicPopup, Quesair, Question) {
     var self = this
     self.saved = true
-    self.saving = false
 
     self.id = $stateParams.id
     getAll()
 
     self.save = function() {
-        self.saving = true
-        var flag = false
         for (item of self.questions) {
             item.set('question', item['attributes']['question'])
             item.set('options', item['attributes']['options'])
-            item.save()
+            file = item['img']
+            if (file) {
+                var avFile = new AV.File(file['name'], file);
+                item.set('img', avFile)
+            }
         }
         AV.Object.saveAll(self.questions).then(function() {
-            self.saving = false
             self.saved = true
-            $scope.$apply()
+        }, function() {
+            alert('保存失败，请重试')
         })
     }
 
@@ -60,6 +61,21 @@ angular.module('QuesApp')
         item.set('correct', index)
     }
 
+    self.uploadFiles = function(file, errFiles, index) {
+        var errFile = errFiles && errFiles[0];
+        if (errFile) {
+            alert("图片错误:" + errFile.$error + "  " + errFile.$errorParam)
+        }
+        if (file) {
+            console.log(file)
+            self.questions[index].img = file
+        }
+    }
+
+    self.sthChanged = function() {
+        self.saved = false
+    }
+
     function add() {
         var question = new Question()
         question.set('quesair', self.quesair)
@@ -79,6 +95,7 @@ angular.module('QuesApp')
 
             query2.equalTo('quesair', result)
             query2.equalTo('isDeleted', false)
+            query2.include('img')
             query2.find().then(function(results) {
                 self.questions = results
                 console.log(results)

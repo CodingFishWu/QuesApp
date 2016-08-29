@@ -3,7 +3,6 @@ angular.module('QuesApp')
 	var self = this
 	self.index = 0
 	self.answers = []
-
 	self.id = $stateParams.id
 	getAll()
 	
@@ -31,6 +30,7 @@ angular.module('QuesApp')
 
             query2.equalTo('quesair', result)
             query2.equalTo('isDeleted', false)
+            query2.include('img')
             query2.find().then(function(results) {
                 self.questions = results
                 console.log(results)

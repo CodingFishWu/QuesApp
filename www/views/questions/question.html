@@ -1,5 +1,5 @@
 <ion-content class="content-all" scroll="false">
-	<div class="content-item" ng-repeat="item in ctrl.questions track by $index" ng-if="ctrl.index==$index">
+	<div class="content-item" ng-repeat="item in ctrl.questions track by $index" ng-if="ctrl.index==$index" ng-style="{'background-image':'url({{item.attributes.img.attributes.url}})'}">
 		<div class="content-question">
 			<div class="row row-center">
 				<h3 class="col">{{item.attributes.question}}</h3>
